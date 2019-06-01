@@ -5,7 +5,9 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
-import android.view.View;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 class NotifyService {
 
@@ -28,9 +30,16 @@ class NotifyService {
         }
     }
 
-    void sendNotification(Context appContext) {
-        NotificationCompat.Builder notifyBuilder = getNotificationBuilder(appContext);
-        mNotifyManager.notify(NOTIFICATION_ID, notifyBuilder.build());
+    void setNotification(int intervalInMinutes, Context appContext) {
+        final NotificationCompat.Builder notifyBuilder = getNotificationBuilder(appContext);
+
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                mNotifyManager.notify(NOTIFICATION_ID, notifyBuilder.build());
+            }
+            //TODO minutes instead of seconds - currently for testing
+        }, 0, intervalInMinutes * 1000);
     }
 
     private NotificationCompat.Builder getNotificationBuilder(Context appContext) {

@@ -13,7 +13,6 @@ public class MainActivity extends AppCompatActivity {
     private NumberPicker np;
     private Button button_set;
     private NotifyService notifyService = new NotifyService();
-    private static NotificationManager mNotifyManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,20 +22,21 @@ public class MainActivity extends AppCompatActivity {
         button_set = findViewById(R.id.button_set);
         np.setMinValue(1);
         np.setMaxValue(30);
-        mNotifyManager = (NotificationManager)
+        NotificationManager mNotifyManager = (NotificationManager)
                 getSystemService(NOTIFICATION_SERVICE);
         notifyService.createNotificationChannel(mNotifyManager);
     }
 
-    public void setValues(View view) {
+    public void showInfoToast() {
         Toast toast = Toast.makeText(getApplicationContext(),
                 String.format("Reminder set to %s minutes", np.getValue())
                 , Toast.LENGTH_SHORT);
         toast.show();
     }
 
-    public void sendNotification(View view) {
-        notifyService.sendNotification(getApplicationContext());
+    public void setProperties(View view) {
+        showInfoToast();
+        notifyService.setNotification(np.getValue(), getApplicationContext());
     }
 
 }
