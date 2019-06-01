@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private NumberPicker np;
     private Button button_set;
     private NotifyService notifyService = new NotifyService();
+    public static int reminderInterval;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,21 +29,22 @@ public class MainActivity extends AppCompatActivity {
         notifyService.createNotificationChannel(mNotifyManager);
     }
 
-    public void showInfoToast() {
+    public void showInfoToast(String text) {
         Toast toast = Toast.makeText(getApplicationContext(),
-                String.format("Reminder set to %s minutes", np.getValue())
-                , Toast.LENGTH_SHORT);
+                text,
+                Toast.LENGTH_SHORT);
         toast.show();
     }
 
     public void setProperties(View view) {
-//        showInfoToast();
-        ScreenReceiver.setAlarm(false);
-//        notifyService.showNotification(np.getValue(), getApplicationContext());
+        reminderInterval = np.getValue();
+        showInfoToast(String.format("Reminder set to %s minutes", np.getValue()));
+        ScreenReceiver.setAlarm(false, reminderInterval);
     }
 
     public void cancelReminders(View view) {
         ScreenReceiver.cancelAlarm();
+        showInfoToast("Reminders canceled!");
     }
 }
 

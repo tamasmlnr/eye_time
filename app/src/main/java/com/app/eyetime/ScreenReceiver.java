@@ -22,13 +22,14 @@ public class ScreenReceiver extends BroadcastReceiver {
         alarm.cancel(getPendingIntent());
     }
 
-    public static void setAlarm(boolean force) {
+    public static void setAlarm(boolean force, int time) {
         cancelAlarm();
         AlarmManager alarm = (AlarmManager) GlobalApplication.getAppContext().getSystemService(Context.ALARM_SERVICE);
 
         // EVERY X MINUTES
 //        long delay = (1000 * 60 * 1);
-        long delay = (1000 * 5);
+        //TODO * 60, currently in seconds
+        long delay = (1000 * time);
         long when = System.currentTimeMillis();
         if (!force) {
             when += delay;

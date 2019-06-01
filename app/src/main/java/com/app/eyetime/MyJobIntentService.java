@@ -22,7 +22,7 @@ public class MyJobIntentService extends JobIntentService {
 
 
         /* reset the alarm */
-        ScreenReceiver.setAlarm(false);
+        ScreenReceiver.setAlarm(false, MainActivity.reminderInterval);
         stopSelf();
     }
 
