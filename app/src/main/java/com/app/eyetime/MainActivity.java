@@ -1,6 +1,7 @@
 package com.app.eyetime;
 
 import android.app.NotificationManager;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,8 +36,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setProperties(View view) {
-        showInfoToast();
-        notifyService.setNotification(np.getValue(), getApplicationContext());
+//        showInfoToast();
+        ScreenReceiver.setAlarm(false);
+//        notifyService.showNotification(np.getValue(), getApplicationContext());
     }
 
 }

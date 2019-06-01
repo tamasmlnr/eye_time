@@ -9,11 +9,22 @@ import android.support.v4.app.NotificationCompat;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static android.content.Context.NOTIFICATION_SERVICE;
+import static android.support.v4.content.ContextCompat.getSystemService;
+
 class NotifyService {
 
     private static final String PRIMARY_CHANNEL_ID = "primary_notification_channel";
     private NotificationManager mNotifyManager;
     private static final int NOTIFICATION_ID = 0;
+    private Context context;
+
+    public NotifyService() {
+        context = GlobalApplication.getAppContext();
+        NotificationManager mNotifyManager = (NotificationManager)
+                context.getSystemService(NOTIFICATION_SERVICE);
+        createNotificationChannel(mNotifyManager);
+    }
 
     void createNotificationChannel(NotificationManager mNotifyManager) {
         this.mNotifyManager = mNotifyManager;
@@ -30,20 +41,12 @@ class NotifyService {
         }
     }
 
-    void setNotification(int intervalInMinutes, Context appContext) {
-        final NotificationCompat.Builder notifyBuilder = getNotificationBuilder(appContext);
-
-        new Timer().scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                mNotifyManager.notify(NOTIFICATION_ID, notifyBuilder.build());
-            }
-            //TODO minutes instead of seconds - currently for testing
-        }, 0, intervalInMinutes * 1000);
+    void showNotification() { ;
+        mNotifyManager.notify(NOTIFICATION_ID, getNotificationBuilder().build());
     }
 
-    private NotificationCompat.Builder getNotificationBuilder(Context appContext) {
-        NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(appContext, PRIMARY_CHANNEL_ID)
+    private NotificationCompat.Builder getNotificationBuilder() {
+        NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(GlobalApplication.getAppContext(), PRIMARY_CHANNEL_ID)
                 .setContentTitle("You've been notified!")
                 .setContentText("This is your notification text.")
                 .setAutoCancel(true)
