@@ -2,18 +2,18 @@ package com.app.eyetime;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-public class NotifyManager extends AppCompatActivity {
+class NotifyService {
 
     private static final String PRIMARY_CHANNEL_ID = "primary_notification_channel";
     private NotificationManager mNotifyManager;
     private static final int NOTIFICATION_ID = 0;
 
-    public void createNotificationChannel(NotificationManager mNotifyManager) {
+    void createNotificationChannel(NotificationManager mNotifyManager) {
         this.mNotifyManager = mNotifyManager;
         if (android.os.Build.VERSION.SDK_INT >=
                 android.os.Build.VERSION_CODES.O) {
@@ -28,13 +28,13 @@ public class NotifyManager extends AppCompatActivity {
         }
     }
 
-    public void sendNotification(View view) {
-        NotificationCompat.Builder notifyBuilder = getNotificationBuilder();
+    void sendNotification(Context appContext) {
+        NotificationCompat.Builder notifyBuilder = getNotificationBuilder(appContext);
         mNotifyManager.notify(NOTIFICATION_ID, notifyBuilder.build());
     }
 
-    private NotificationCompat.Builder getNotificationBuilder() {
-        NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(this, PRIMARY_CHANNEL_ID)
+    private NotificationCompat.Builder getNotificationBuilder(Context appContext) {
+        NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(appContext, PRIMARY_CHANNEL_ID)
                 .setContentTitle("You've been notified!")
                 .setContentText("This is your notification text.")
                 .setAutoCancel(true)

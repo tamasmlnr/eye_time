@@ -1,9 +1,6 @@
 package com.app.eyetime;
 
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.graphics.Color;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
     private NumberPicker np;
     private Button button_set;
-    private NotifyManager notifyManager = new NotifyManager();
+    private NotifyService notifyService = new NotifyService();
     private static NotificationManager mNotifyManager;
 
     @Override
@@ -28,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         np.setMaxValue(30);
         mNotifyManager = (NotificationManager)
                 getSystemService(NOTIFICATION_SERVICE);
-        notifyManager.createNotificationChannel(mNotifyManager);
+        notifyService.createNotificationChannel(mNotifyManager);
     }
 
     public void setValues(View view) {
@@ -39,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendNotification(View view) {
-
+        notifyService.sendNotification(getApplicationContext());
     }
 
 }
