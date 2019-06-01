@@ -41,5 +41,8 @@ public class MainActivity extends AppCompatActivity {
 //        notifyService.showNotification(np.getValue(), getApplicationContext());
     }
 
+    public void cancelReminders(View view) {
+        ScreenReceiver.cancelAlarm();
+    }
 }
 
