@@ -14,10 +14,9 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private NumberPicker np;
-    private static final String PRIMARY_CHANNEL_ID = "primary_notification_channel";
-    private NotificationManager mNotifyManager;
-    private static final int NOTIFICATION_ID = 0;
     private Button button_set;
+    private NotifyManager notifyManager = new NotifyManager();
+    private static NotificationManager mNotifyManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
         button_set = findViewById(R.id.button_set);
         np.setMinValue(1);
         np.setMaxValue(30);
-        createNotificationChannel();
+        mNotifyManager = (NotificationManager)
+                getSystemService(NOTIFICATION_SERVICE);
+        notifyManager.createNotificationChannel(mNotifyManager);
     }
 
     public void setValues(View view) {
@@ -37,34 +38,8 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
     }
 
-    public void createNotificationChannel() {
-        mNotifyManager = (NotificationManager)
-                getSystemService(NOTIFICATION_SERVICE);
-        if (android.os.Build.VERSION.SDK_INT >=
-                android.os.Build.VERSION_CODES.O) {
-            NotificationChannel notificationChannel = new NotificationChannel(PRIMARY_CHANNEL_ID,
-                    "Mascot Notification", NotificationManager
-                    .IMPORTANCE_HIGH);
-            notificationChannel.enableLights(true);
-            notificationChannel.setLightColor(Color.RED);
-            notificationChannel.enableVibration(true);
-            notificationChannel.setDescription("Notification from Mascot");
-            mNotifyManager.createNotificationChannel(notificationChannel);
-        }
-    }
-
     public void sendNotification(View view) {
-        NotificationCompat.Builder notifyBuilder = getNotificationBuilder();
-        mNotifyManager.notify(NOTIFICATION_ID, notifyBuilder.build());
-    }
 
-    private NotificationCompat.Builder getNotificationBuilder() {
-        NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(this, PRIMARY_CHANNEL_ID)
-                .setContentTitle("You've been notified!")
-                .setContentText("This is your notification text.")
-                .setAutoCancel(true)
-                .setSmallIcon(R.drawable.ic_eye);
-        return notifyBuilder;
     }
 
 }
