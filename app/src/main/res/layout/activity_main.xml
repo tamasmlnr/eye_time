@@ -1,34 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context="com.app.eyetime.MainActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="52dp"
         android:text="How many minutes should pass between each reminder?"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="15sp" />
 
     <NumberPicker
         android:id="@+id/numberPicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="92dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="8dp" />
+
+    <TextView
+        android:id="@+id/countdown"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/numberPicker"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="No timer set"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/button_set"
@@ -40,27 +49,17 @@
         android:onClick="setProperties"
         android:text="Set"
         android:textColor="#FCFFFF"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_cancel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numberPicker"
-        app:layout_constraintVertical_bias="0.865" />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/button_cancel"
         android:layout_width="270dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="132dp"
+        android:layout_marginBottom="56dp"
         android:background="@drawable/button_shape"
         android:onClick="cancelReminders"
         android:text="Cancel reminders"
         android:textColor="#FCFFFF"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="20sp" />
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
