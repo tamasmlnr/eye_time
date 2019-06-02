@@ -9,6 +9,7 @@ import android.content.Intent;
 public class ScreenReceiver extends BroadcastReceiver {
 
     public static final String CUSTOM_INTENT = "com.test.intent.action.ALARM";
+    public static long interval;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -34,7 +35,7 @@ public class ScreenReceiver extends BroadcastReceiver {
         if (!force) {
             when += delay;
         }
-
+        interval = delay;
         /* fire the broadcast */
         alarm.set(AlarmManager.RTC_WAKEUP, when, getPendingIntent());
     }

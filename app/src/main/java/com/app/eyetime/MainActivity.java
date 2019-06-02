@@ -1,10 +1,9 @@
 package com.app.eyetime;
 
 import android.app.NotificationManager;
-import android.content.Context;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
@@ -18,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private NotifyService notifyService = new NotifyService();
     public static int reminderInterval;
     private TextView countdown;
-    private CountDownTimer countDownTimer;
+    private static CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,27 +41,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setProperties(View view) {
+        ScreenReceiver.cancelAlarm();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
         reminderInterval = np.getValue();
         showInfoToast(String.format("Reminder set to %s minutes", np.getValue()));
         ScreenReceiver.setAlarm(false, reminderInterval);
         reverseTimer(np.getValue(), countdown);
     }
 
-    public void reverseTimer(final int Seconds, final TextView tv){
+    public void reverseTimer(final int Seconds, final TextView tv) {
 
-        countDownTimer = new CountDownTimer(Seconds* 1000+1000, 1000) {
+        countDownTimer = new CountDownTimer(Seconds * 1000 + 1000, 1000) {
+            long timeLeft = ScreenReceiver.interval;
 
             public void onTick(long millisUntilFinished) {
-                int seconds = (int) (millisUntilFinished / 1000);
+                int seconds = (int) (timeLeft / 1000);
                 int minutes = seconds / 60;
                 seconds = seconds % 60;
                 tv.setText("Next reminder : " + String.format("%02d", minutes)
                         + ":" + String.format("%02d", seconds));
+                timeLeft = timeLeft - 1000;
             }
 
             public void onFinish() {
                 countDownTimer.start();
+                timeLeft = ScreenReceiver.interval;
             }
+
+
         }.start();
     }
 
