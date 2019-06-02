@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private NotifyService notifyService = new NotifyService();
     public static int reminderInterval;
     private TextView countdown;
+    private CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
         reverseTimer(np.getValue(), countdown);
     }
 
-    public void reverseTimer(int Seconds,final TextView tv){
+    public void reverseTimer(final int Seconds, final TextView tv){
 
-        new CountDownTimer(Seconds* 1000+1000, 1000) {
+        countDownTimer = new CountDownTimer(Seconds* 1000+1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 int seconds = (int) (millisUntilFinished / 1000);
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             public void onFinish() {
-                tv.setText("Completed");
+                countDownTimer.start();
             }
         }.start();
     }
@@ -68,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
     public void cancelReminders(View view) {
         ScreenReceiver.cancelAlarm();
         showInfoToast("Reminders canceled!");
+        countDownTimer.cancel();
+        countdown.setText("No reminders set");
     }
 }
 
