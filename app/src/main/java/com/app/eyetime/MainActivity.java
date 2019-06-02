@@ -2,11 +2,13 @@ package com.app.eyetime;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private Button button_set;
     private NotifyService notifyService = new NotifyService();
     public static int reminderInterval;
+    private TextView countdown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         np = findViewById(R.id.numberPicker);
         button_set = findViewById(R.id.button_set);
+        countdown = findViewById(R.id.countdown);
         np.setMinValue(1);
         np.setMaxValue(30);
         NotificationManager mNotifyManager = (NotificationManager)
@@ -40,6 +44,25 @@ public class MainActivity extends AppCompatActivity {
         reminderInterval = np.getValue();
         showInfoToast(String.format("Reminder set to %s minutes", np.getValue()));
         ScreenReceiver.setAlarm(false, reminderInterval);
+        reverseTimer(np.getValue(), countdown);
+    }
+
+    public void reverseTimer(int Seconds,final TextView tv){
+
+        new CountDownTimer(Seconds* 1000+1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                int seconds = (int) (millisUntilFinished / 1000);
+                int minutes = seconds / 60;
+                seconds = seconds % 60;
+                tv.setText("Next reminder : " + String.format("%02d", minutes)
+                        + ":" + String.format("%02d", seconds));
+            }
+
+            public void onFinish() {
+                tv.setText("Completed");
+            }
+        }.start();
     }
 
     public void cancelReminders(View view) {
