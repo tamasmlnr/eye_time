@@ -13,13 +13,12 @@ public class ScreenReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-         MyJobIntentService.enqueueWork(context, intent);
+         JobIntentService.enqueueWork(context, intent);
     }
 
     public static void cancelAlarm() {
         AlarmManager alarm = (AlarmManager) GlobalApplication.getAppContext().getSystemService(Context.ALARM_SERVICE);
 
-        /* cancel any pending alarm */
         alarm.cancel(getPendingIntent());
     }
 
@@ -27,16 +26,13 @@ public class ScreenReceiver extends BroadcastReceiver {
         cancelAlarm();
         AlarmManager alarm = (AlarmManager) GlobalApplication.getAppContext().getSystemService(Context.ALARM_SERVICE);
 
-        // EVERY X MINUTES
-//        long delay = (1000 * 60 * 1);
-        //TODO * 60, currently in seconds
-        long delay = (1000 * time);
+        long delayInMilliseconds = (time * 60 * 1000);
         long when = System.currentTimeMillis();
         if (!force) {
-            when += delay;
+            when += delayInMilliseconds;
         }
-        interval = delay;
-        /* fire the broadcast */
+        interval = delayInMilliseconds;
+
         alarm.set(AlarmManager.RTC_WAKEUP, when, getPendingIntent());
     }
 

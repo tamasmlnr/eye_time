@@ -3,14 +3,13 @@ package com.app.eyetime;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.app.JobIntentService;
 
-public class MyJobIntentService extends JobIntentService {
+public class JobIntentService extends android.support.v4.app.JobIntentService {
 
     private static final int JOB_ID = 1000;
 
     public static void enqueueWork(Context ctx, Intent intent) {
-        enqueueWork(ctx, MyJobIntentService.class, JOB_ID, intent);
+        enqueueWork(ctx, JobIntentService.class, JOB_ID, intent);
     }
 
     @Override

@@ -17,10 +17,9 @@ class NotifyService {
     private static final String PRIMARY_CHANNEL_ID = "primary_notification_channel";
     private NotificationManager mNotifyManager;
     private static final int NOTIFICATION_ID = 0;
-    private Context context;
 
-    public NotifyService() {
-        context = GlobalApplication.getAppContext();
+    NotifyService() {
+        Context context = GlobalApplication.getAppContext();
         NotificationManager mNotifyManager = (NotificationManager)
                 context.getSystemService(NOTIFICATION_SERVICE);
         createNotificationChannel(mNotifyManager);
@@ -46,12 +45,11 @@ class NotifyService {
     }
 
     private NotificationCompat.Builder getNotificationBuilder() {
-        NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(GlobalApplication.getAppContext(), PRIMARY_CHANNEL_ID)
+        return new NotificationCompat.Builder(GlobalApplication.getAppContext(), PRIMARY_CHANNEL_ID)
                 .setContentTitle("You've been notified!")
                 .setContentText("This is your notification text.")
                 .setAutoCancel(true)
                 .setSmallIcon(R.drawable.ic_eye);
-        return notifyBuilder;
     }
 
 }
