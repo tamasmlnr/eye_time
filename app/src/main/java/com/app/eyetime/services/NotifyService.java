@@ -29,12 +29,12 @@ public class NotifyService {
         if (android.os.Build.VERSION.SDK_INT >=
                 android.os.Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(PRIMARY_CHANNEL_ID,
-                    "Mascot Notification", NotificationManager
+                    "EyeTime", NotificationManager
                     .IMPORTANCE_HIGH);
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.RED);
             notificationChannel.enableVibration(true);
-            notificationChannel.setDescription("Notification from Mascot");
+            notificationChannel.setDescription("EyeTime Notification");
             mNotifyManager.createNotificationChannel(notificationChannel);
         }
     }
@@ -45,8 +45,8 @@ public class NotifyService {
 
     private NotificationCompat.Builder getNotificationBuilder() {
         return new NotificationCompat.Builder(GlobalApplication.getAppContext(), PRIMARY_CHANNEL_ID)
-                .setContentTitle("You've been notified!")
-                .setContentText("This is your notification text.")
+                .setContentTitle("EyeTime")
+                .setContentText("Rest your eyes, look far away!")
                 .setAutoCancel(true)
                 .setSmallIcon(R.drawable.ic_eye);
     }
