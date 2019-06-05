@@ -1,8 +1,11 @@
-package com.app.eyetime;
+package com.app.eyetime.services;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+
+import com.app.eyetime.MainActivity;
+import com.app.eyetime.ScreenReceiver;
 
 public class JobIntentService extends android.support.v4.app.JobIntentService {
 

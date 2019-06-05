@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">EyeTime</string>
+    <string name="no_reminders">No reminders set</string>
+    <string name="next_reminder">Next reminder :</string>
 </resources>

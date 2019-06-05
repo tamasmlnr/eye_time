@@ -24,7 +24,7 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".JobIntentService"
+        <service android:name=".services.JobIntentService"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="true"/>
 

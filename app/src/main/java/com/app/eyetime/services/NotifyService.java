@@ -1,4 +1,4 @@
-package com.app.eyetime;
+package com.app.eyetime.services;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -6,26 +6,25 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import com.app.eyetime.GlobalApplication;
+import com.app.eyetime.R;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
-import static android.support.v4.content.ContextCompat.getSystemService;
 
-class NotifyService {
+public class NotifyService {
 
     private static final String PRIMARY_CHANNEL_ID = "primary_notification_channel";
     private NotificationManager mNotifyManager;
     private static final int NOTIFICATION_ID = 0;
 
-    NotifyService() {
+    public NotifyService() {
         Context context = GlobalApplication.getAppContext();
         NotificationManager mNotifyManager = (NotificationManager)
                 context.getSystemService(NOTIFICATION_SERVICE);
         createNotificationChannel(mNotifyManager);
     }
 
-    void createNotificationChannel(NotificationManager mNotifyManager) {
+    public void createNotificationChannel(NotificationManager mNotifyManager) {
         this.mNotifyManager = mNotifyManager;
         if (android.os.Build.VERSION.SDK_INT >=
                 android.os.Build.VERSION_CODES.O) {

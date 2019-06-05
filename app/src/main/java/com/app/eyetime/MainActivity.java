@@ -9,6 +9,8 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.eyetime.services.NotifyService;
+
 public class MainActivity extends AppCompatActivity {
 
     private NumberPicker np;
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 int seconds = (int) (timeLeft / 1000);
                 int minutes = seconds / 60;
                 seconds = seconds % 60;
-                tv.setText("Next reminder : " + String.format("%02d", minutes)
+                tv.setText(getString(R.string.next_reminder) + String.format("%02d", minutes)
                         + ":" + String.format("%02d", seconds));
                 timeLeft = timeLeft - 1000;
             }
@@ -74,6 +76,6 @@ public class MainActivity extends AppCompatActivity {
         ScreenReceiver.cancelAlarm();
         showInfoToast("Reminders canceled!");
         countDownTimer.cancel();
-        countdown.setText("No reminders set");
+        countdown.setText(getString(R.string.no_reminders));
     }
 }

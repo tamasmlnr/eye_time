@@ -6,6 +6,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.app.eyetime.services.JobIntentService;
+
 public class ScreenReceiver extends BroadcastReceiver {
 
     public static final String CUSTOM_INTENT = "com.test.intent.action.ALARM";
